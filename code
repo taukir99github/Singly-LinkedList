@@ -1,0 +1,443 @@
+package helloworld;
+
+import java.util.Scanner;
+
+public class SinglyLinkedList {
+	class node {
+		int data;
+		node next;
+
+		public node(int data) {
+			this.data = data;
+			this.next = null;
+		}
+
+	}
+
+	public static node head = null;
+
+	public void InsertNodeFirst(int value) {
+		node new_node = new node(value);
+		if (head == null) {
+			head = new_node;
+
+		} else {
+			new_node.next = head;
+			head = new_node;
+		}
+
+	}
+
+	public void InsertAtLast(int value) {
+		node new_node = new node(value);
+		if (head == null) {
+			head = new_node;
+		} else {
+			node n = head;
+			while (n.next != null) {
+				n = n.next;
+			}
+			n.next = new_node;
+
+		}
+	}
+
+	public void InsertAtPosition(int value) {
+		Scanner sc = new Scanner(System.in);
+		node new_node = new node(value);
+		int position = 0;
+		System.out.println("Enter the position: ");
+		position = sc.nextInt();
+		if (head == null) {
+			head = new_node;
+		} else {
+			node n = head;
+			for (int i = 1; i < position - 1; i++) {
+				n = n.next;
+			}
+
+			new_node.next = n.next;
+			n.next = new_node;
+
+		}
+
+	}
+
+	public void InsertAtSortedPosition(int value) {
+		Scanner sc = new Scanner(System.in);
+		node new_node = new node(value);
+		if (head == null) {
+			head = new_node;
+		} else {
+			node n1 = head;
+			node n2 = head;
+			while (n1 != null && n1.data < value) {
+				n2 = n1;
+				n1 = n1.next;
+
+			}
+			if (n1 == head) {
+				new_node = head;
+				head = new_node;
+			} else {
+
+				new_node.next = n2.next;
+				n2.next = new_node;
+
+			}
+		}
+	}
+
+	public void DeleteAtFirst() {
+		if (head == null) {
+			System.out.println("SORRY LIST IS EMPTY!!!");
+		} else {
+			node n = head;
+			head = head.next;
+			System.out.println("NODE IS DELETED!!!");
+		}
+	}
+
+	public void DeleteAtLast() {
+		if (head == null) {
+			System.out.println("SORRY LIST IS EMPTY");
+		} else if (head.next == null) {
+			head = null;
+		} else {
+			node n1, n2;
+			n1 = n2 = head;
+			while (n1.next != null) {
+				n2 = n1;
+				n1 = n1.next;
+			}
+			n2.next = null;
+			System.out.println("NODE IS DELETED SUCCESSFULLY!!!");
+		}
+	}
+
+	public void DeleteAtPosition() {
+		Scanner sc = new Scanner(System.in);
+		int position;
+		System.out.println("Enter the position for delete : ");
+		position = sc.nextInt();
+		if (head == null) {
+			System.out.println("SORRY LIST IS EMPTY!!!");
+
+		} else if (head.next == null) {
+			head = null;
+		} else {
+			node n1, n2;
+			n1 = n2 = head;
+			for (int i = 0; i < position; i++) {
+				n2 = n1;
+				n1 = n1.next;
+			}
+			n2.next = n1.next;
+			System.out.println("NODE IS DELETED !!!");
+		}
+	}
+
+	public int GetLength() {
+		int count = 0;
+		node n = head;
+		while (n != null) {
+			count++;
+			n = n.next;
+		}
+		System.out.println("Total number of node is " + " " + count);
+		return count;
+	}
+
+	public void MiddleElement() {
+		node fast = head;
+		node slow = head;
+		while (fast != null && fast.next != null) {
+			slow = slow.next;
+			fast = fast.next.next;
+		}
+		System.out.println("Middle Element of list is : ");
+		System.out.println(slow.data);
+
+	}
+
+	public void SearchData() {
+		int data;
+		int flag = 0;
+		node n = head;
+		Scanner sc = new Scanner(System.in);
+		if (head == null) {
+			System.out.println("SORRY LIST IS EMPTY!!!");
+		} else {
+			System.out.println("Enter the data want to search: ");
+			data = sc.nextInt();
+			while (n != null) {
+
+				if (n.data == data) {
+
+					flag = 1;
+				}
+				n = n.next;
+			}
+
+			if (flag == 1) {
+				System.out.println("Data is  present !!!");
+
+			} else {
+				System.out.println("Data is not present !!!");
+			}
+		}
+	}
+
+	public void Palindrome() {
+
+	}
+
+	public static void ReverseList() {
+		node previous = null;
+		node current = head;
+		node next = head;
+		System.out.println("After reversing of list: ");
+		while (next != null) {
+			next = current.next;
+			current.next = previous;
+			previous = current;
+			current = next;
+		}
+		head = previous;
+	}
+
+	public void FrequencyOfElement() {
+		int count = 0, x;
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter the data want to check : ");
+		x = sc.nextInt();
+		node n = head;
+		while (n != null) {
+			if (n.data == x) {
+				count++;
+
+			}
+			n = n.next;
+		}
+		System.out.println("frequency is" + " " + count);
+
+	}
+
+	public void MaxMinElement() {
+		int Max = Integer.MIN_VALUE;
+		int Min = Integer.MAX_VALUE;
+		node n = head;
+		Max = head.data;
+		Min = head.data;
+		while (n.next != null) {
+			if (n.data > Max) {
+				Max = n.data;
+			}
+			if (n.data < n.data) {
+				Min = n.data;
+			}
+			n = n.next;
+
+		}
+		System.out.println("Maximum element in list is" + " " + Max);
+		System.out.println("Minimum element in list is" + " " + Min);
+	}
+
+	public void DetectCycle() {
+		node slow = head;
+		node fast = head;
+		while (fast != null && fast.next != null) {
+			slow = slow.next;
+			fast = fast.next.next;
+		}
+		if (slow == fast) {
+			System.out.println("loop is there in the list");
+
+		} else {
+			System.out.println("No loop in the list");
+
+		}
+
+	}
+
+
+	public void RemoveDuplicateFromSortedList() {
+		if (head == null) {
+			System.out.println("LIST IS EMPTY: ");
+		} else {
+			node n = head;
+			while (n.next != null) {
+				if (n.data == n.next.data) {
+					n.next = n.next.next;
+				} else {
+					n = n.next;
+				}
+			}
+
+		}
+
+	}
+
+	public void RemoveDuplicateFromUnsortedList() {
+		if (head == null) {
+			System.out.println("LIST IS EMPTY!!!");
+		} else {
+			int x;
+			node n1 = head;
+			node n2 = null;
+			while (n1 != null) {
+				n2 = n1;
+				while (n2.next != null) {
+					if (n1.data == n2.next.data) {
+						n2.next = n2.next.next;
+					} else {
+
+						n2 = n2.next;
+					}
+					n1 = n1.next;
+				}
+			}
+		}
+	}
+
+	public node AddOneNumber() {
+		node n = head;
+		while (n != null) {
+			if (n.next != null || n.data == 9) {
+				n.data = 1;
+				node dum = new node(0);
+				dum.next = head;
+				head = dum;
+				n = n.next;
+			} else if (n.data == 9) {
+				n.data = 0;
+				n = n.next;
+			} else {
+				n.data = n.data + 1;
+				n = n.next;
+				break;
+			}
+
+		}
+
+		return head;
+
+	}
+
+	public void SumOfList() {
+		if (head == null) {
+			System.out.println("LIST IS EMPTY!!!");
+		} else {
+			node n = head;
+			int sum = 0;
+			while (n != null) {
+				sum = sum + n.data;
+				n = n.next;
+			}
+			System.out.println("Sum of List is" + " " + sum);
+		}
+	}
+
+	public int ListIsSorted() {
+		if (head == null) {
+			System.out.println("LIST IS SORTED: ");
+		} else {
+			int x = -65536;
+			node n = head;
+			while (n.next != null) {
+				x = n.data;
+				n = n.next;
+			}
+			if (n.data < x) {
+				return 0;
+			}
+
+		}
+		return 1;
+
+	}
+
+	public void display() {
+		node n = head;
+		if (head == null) {
+			System.out.println(" Sorry list is empty");
+			return;
+		} else {
+			System.out.println("List of node is: ");
+			while (n != null) {
+				System.out.println(n.data + " ");
+				n = n.next;
+			}
+		}
+	}
+
+	public static void main(String[] args) {
+		SinglyLinkedList list = new SinglyLinkedList();
+		int choice;
+		Scanner sc=new Scanner(System.in);
+		while(true)
+		{
+		System.out.println("1.InsertAtFirst");
+		System.out.println("2.DeleteAtFirst");
+		System.out.println("3.Display");
+		System.out.println("Enter your choice: ");
+		choice=sc.nextInt();
+		switch(choice)
+		{
+		
+		case 1:int x;
+		System.out.println("Enter value: ");
+		x=sc.nextInt();
+			list.InsertNodeFirst(x);
+		break;
+		case 2:list.DeleteAtFirst();
+		break;
+		case 3:list.display();
+		}
+		}
+		
+		// list.InsertNodeFirst(10);
+		// list.InsertNodeFirst(20);
+		// list.InsertNodeFirst(30);
+		// list.InsertNodeFirst(40);
+		// list.InsertNodeFirst(50);
+		// list.InsertNodeFirst(60);
+		// list.InsertAtLast(15);
+		// list.display();
+		// list. InsertAtSortedPosition(35);
+		// list.InsertAtPosition(20);
+		// list.display();
+		// list.DeleteAtFirst();
+		// list.display();
+		// list.DeleteAtLast();
+		// list.display();
+		//list.InsertAtLast(10);
+		//list.InsertAtLast(20);
+		//list.InsertAtLast(30);
+		//list.InsertAtLast(4);
+		//list.InsertAtLast(50);
+		//list.ListIsSorted();
+		// list.DeleteAtPosition();
+		// list.display();
+		// list.InsertAtSortedPosition(45);
+		// list.GetLength();
+	//	list.display();
+		// list.ReverseList();
+		// list.SearchData();
+		// list.InsertAtPosition(50);
+		// list.Palindrome();
+		// list.ReverseList();
+		// list.display();
+		// list.Palindrome();
+		// list.MiddleElement();
+		// list.FrequencyOfElement();
+		// list.MaxMinElement();
+		// list.DetectCycle();
+		// list.RemoveDuplicateFromSortedList();
+		// list.RemoveDuplicateFromUnsortedList();
+		// list.AddOneNumber(head);
+		// list.SumOfList();
+		// list.display();
+	}
+
+}
